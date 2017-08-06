@@ -14,6 +14,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     TextView mTextView;
+    int hourOfDay;
+    int minute;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,29 +28,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button button2 = (Button) findViewById(R.id.bt1);
         button2.setOnClickListener(this);
 
-        mTextView = (TextView) findViewById(R.id.textView);
+        mTextView = (TextView) findViewById(R.id.tv1);
 
+
+
+    }
     @Override
     public void onClick(View v){
             if(v.getId()==R.id.tpd1){
                 showTimePickerDialog();
-            }else if(v.getId==R.id.bt1){
-                mTextView.setText(String.valueOf(hourOfDay)+ ":" + String.valueOf(minute));
+                Log.d("UI_PARTS", "TimePickerを出します");
+            }else if(v.getId()==R.id.bt1){
+                setTextView();
+               // mTextView.setText(String.valueOf(hourOfDay)+ ":" + String.valueOf(minute));
+                Log.d("UI_PARTS", "挨拶します");
             }
+
         }
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-                @Override
-                public void onClick(View v) {
-                    Log.d("UI_PARTS", "ボタンをタップしました");
-                }
-
-
-            TextView textView = (TextView) findViewById(R.id.textView);
-    }
 
     private void showTimePickerDialog(){
         TimePickerDialog tpd= new TimePickerDialog(this,
@@ -55,12 +53,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         Log.d("UI-PARTS", String.valueOf(hourOfDay) + ":" + String.valueOf(minute));
+                        setTextView();
                     }
                 },13,0,
                 true);
         tpd.show();
     }
 
+    private void setTextView() {
+        if (2 <= hourOfDay && hourOfDay < 10) {
+            mTextView.setText("おはよう");
+        } else if (10 < hourOfDay && hourOfDay < 18) {
+            mTextView.setText("こんにちは");
+        } else {
+            mTextView.setText("こんばんは");
+        }
+    }
 
-    TextView textView = (TextView) findViewById(R.id.tv1);
 }
