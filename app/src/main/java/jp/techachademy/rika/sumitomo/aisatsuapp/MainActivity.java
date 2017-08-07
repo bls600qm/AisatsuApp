@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d("UI_PARTS", "TimePickerを出します");
             }else if(v.getId()==R.id.bt1){
                 setTextView();
-               // mTextView.setText(String.valueOf(hourOfDay)+ ":" + String.valueOf(minute));
                 Log.d("UI_PARTS", "挨拶します");
             }
 
@@ -51,9 +50,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TimePickerDialog tpd= new TimePickerDialog(this,
                 new TimePickerDialog.OnTimeSetListener(){
                     @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    public void onTimeSet(TimePicker view, int h, int m) {
                         Log.d("UI-PARTS", String.valueOf(hourOfDay) + ":" + String.valueOf(minute));
-                        setTextView();
+                        hourOfDay = h;
+                        minute = m;
+                        //setTextView();
                     }
                 },13,0,
                 true);
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setTextView() {
         if (2 <= hourOfDay && hourOfDay < 10) {
             mTextView.setText("おはよう");
-        } else if (10 < hourOfDay && hourOfDay < 18) {
+        } else if (10 <= hourOfDay && hourOfDay < 18) {
             mTextView.setText("こんにちは");
         } else {
             mTextView.setText("こんばんは");
